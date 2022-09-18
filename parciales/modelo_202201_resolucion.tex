@@ -16,10 +16,10 @@ tieneValor: $dicc(\alpha, nat) \times nat \rightarrow bool$
 tieneValor(d, n) $\equiv $
 \begin{lstlisting}
     if vacio?(claves(d))
-    then false
-    else if obtener(d, dameUno(claves(d))) = n
-        then true
-        else tieneValor(borrar(Dame(no(claves(d)), d), n)
+        then false
+        else if obtener(d, dameUno(claves(d))) = n
+            then true
+            else tieneValor(borrar(Dame(no(claves(d)), d), n)
 \end{lstlisting}
 \section{Ejercicio 2}
 
@@ -27,16 +27,16 @@ diasRestantesDeAlquiler(inaugurarVC(cs,ps), c2) $\equiv$ vacio
 
 diasRestantesDeAlquiler(alquilar(v,c,p), c2) $\equiv$ 
 \begin{lstlisting}
-if c = c2
-    then definir(p, obtener(p, pelis(v)), diasRestantesDeAlquiler(v,c))
-    else diasRestantesDeAlquiler(v, c2)
+    if c = c2
+        then definir(p, obtener(p, pelis(v)), diasRestantesDeAlquiler(v,c))
+        else diasRestantesDeAlquiler(v, c2)
 \end{lstlisting}
 
 diasRestantesDeAlquiler(devolver(v,c,p), c2) $\equiv$ 
 \begin{lstlisting}
     if c = c2
-    then borrar(p, diasRestantesDeAlquiler(v,c))
-    else diasRestantesDeAlquiler(v,c)
+        then borrar(p, diasRestantesDeAlquiler(v,c))
+        else diasRestantesDeAlquiler(v,c)
 \end{lstlisting}
 
 diasRestantesDeAlquiler(pasarDia(v), c2) $\equiv$ restarUno(quitarVencidas(diasRestantesDeAlquiler(v, c2)))
@@ -54,10 +54,10 @@ quitarVencidas(alqs) $\equiv$ borrarLasVencidas(alqs, claves(alqs))
 borrarLasVencidas(d, c) $\equiv$ 
 \begin{lstlisting}
     if vacio?(c)
-    then vacio
-    else if obtener(dameUno(c), d) = 0
-        then borrarLasVencidas(borrar(dameUno(c), d), c)
-        else definir(dameUno(c), obtener(dameUno(c), d), borrarLasVencidas(d, sinUno(c)))
+        then vacio
+        else if obtener(dameUno(c), d) = 0
+            then borrarLasVencidas(borrar(dameUno(c), d), c)
+            else definir(dameUno(c), obtener(dameUno(c), d), borrarLasVencidas(d, sinUno(c)))
 \end{lstlisting}
 
 clientesSinVencidas(v, cs) $\equiv$ 
@@ -65,8 +65,8 @@ clientesSinVencidas(v, cs) $\equiv$
     if vacio?(cs)
         then $\emptyset$
         else if tieneValor(diasRestantesDeAlquiler(v, dameUno(cs)),0)
-        then clientesSinVencidas(v, sinUno(cs))
-        else Ag(dameUno(cs), clientesSinVencidas(v, sinUno(cs))
+            then clientesSinVencidas(v, sinUno(cs))
+            else Ag(dameUno(cs), clientesSinVencidas(v, sinUno(cs))
 \end{lstlisting}
 
 \section{Ejercicio 3}
