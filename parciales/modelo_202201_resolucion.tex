@@ -1,0 +1,138 @@
+\input{../template}
+\setlength{\parindent}{0pt}
+
+\title{Modelo Primer Parcial}
+\author{TADs y especificación}
+\date{Septiembre 2022}
+
+\begin{document}
+
+\maketitle
+
+\section{Ejercicio 1}
+
+tieneValor: $dicc(\alpha, nat) \times nat \rightarrow bool$
+
+tieneValor(d, n) $\equiv $
+\begin{lstlisting}
+    if vacio?(claves(d))
+    then false
+    else if obtener(d, dameUno(claves(d))) = n
+        then true
+        else tieneValor(borrar(Dame(no(claves(d)), d), n)
+\end{lstlisting}
+\section{Ejercicio 2}
+
+diasRestantesDeAlquiler(inaugurarVC(cs,ps), c2) $\equiv$ vacio
+
+diasRestantesDeAlquiler(alquilar(v,c,p), c2) $\equiv$ 
+\begin{lstlisting}
+if c = c2
+    then definir(p, obtener(p, pelis(v)), diasRestantesDeAlquiler(v,c))
+    else diasRestantesDeAlquiler(v, c2)
+\end{lstlisting}
+
+diasRestantesDeAlquiler(devolver(v,c,p), c2) $\equiv$ 
+\begin{lstlisting}
+    if c = c2
+    then borrar(p, diasRestantesDeAlquiler(v,c))
+    else diasRestantesDeAlquiler(v,c)
+\end{lstlisting}
+
+diasRestantesDeAlquiler(pasarDia(v), c2) $\equiv$ restarUno(quitarVencidas(diasRestantesDeAlquiler(v, c2)))
+
+clientes(inaugurarVC(cs, ps)) $\equiv$ cs
+
+clientes(alquilar(v,c,p)) $\equiv$ clientes(v)
+
+clientes(devolver(v,c,p)) $\equiv$ clientes(v)
+
+clientes(pasarDia(v)) $\equiv$ clientesSinVencidas(c, clientes(v))
+
+quitarVencidas(alqs) $\equiv$ borrarLasVencidas(alqs, claves(alqs))
+
+borrarLasVencidas(d, c) $\equiv$ 
+\begin{lstlisting}
+    if vacio?(c)
+    then vacio
+    else if obtener(dameUno(c), d) = 0
+        then borrarLasVencidas(borrar(dameUno(c), d), c)
+        else definir(dameUno(c), obtener(dameUno(c), d), borrarLasVencidas(d, sinUno(c)))
+\end{lstlisting}
+
+clientesSinVencidas(v, cs) $\equiv$ 
+\begin{lstlisting}[mathescape=true]
+    if vacio?(cs)
+        then $\emptyset$
+        else if tieneValor(diasRestantesDeAlquiler(v, dameUno(cs)),0)
+        then clientesSinVencidas(v, sinUno(cs))
+        else Ag(dameUno(cs), clientesSinVencidas(v, sinUno(cs))
+\end{lstlisting}
+
+\section{Ejercicio 3}
+
+\subsection*{Pregunta a}
+Dos juegos de calamares se pueden diferenciar observando:
+\begin{itemize}
+    \item Los jugadores vivos
+    \item Los seguidores que tiene cada jugador
+\end{itemize}
+    
+\subsection*{Pregunta b}
+
+TAD CALAMAR es String
+
+\textbf{Observadores básicos}
+\begin{itemize}
+    \item jugadores: jc $\rightarrow$ conj(calamar)
+    \item seguidores: calamar c $\times$ jc j $\rightarrow$ conj(calamar) \{c $\in$ jugadores(j)\}
+\end{itemize}
+
+
+\textbf{Igualdad observacional}
+\begin{align*}
+(\forall j, j': jc)(j =_{obs} j' \iff &jugadores(j) =_{obs} jugadores(j') \\
+                    \wedge &(\forall c: calamar)(c \in jugadores(j) \implies_{L} seguidores(c,j) = seguidores(c, j'))
+\end{align*}
+   
+\subsection*{Pregunta c}
+
+\textbf{Generadores}
+\begin{itemize}
+    \item iniciarJuego: conj(calamates) $\rightarrow$ jc
+    \item seguir: calamar a $\times$ calamar b $\times$ jc j $\rightarrow$ jc 
+    
+    \{a $\in$ jugadores(j) $\wedge$ b $\in$ jugadores(j) $\wedge$ $\neg$ esSeguidor(a, j)\}
+    \item luchar: calamar a $\times$ calamar b $\times$ jc j $\rightarrow$ jc 
+    
+    \{a $\in$ jugadores(j) $\wedge$ b $\in$ jugadores(j)\}
+\end{itemize}
+
+\subsection*{Pregunda d}
+
+jugadores(iniciarJuego(cs)) $\equiv$ cs
+
+jugadores(seguir(a, b, j)) $\equiv$ jugadores(j)
+
+jugadores(luchar(a, b, j)) $\equiv$ jugadores(j) - b
+
+seguidores(c, iniciarJuego(cs)) $\equiv \emptyset$
+
+seguidores(c, seguir(a,b,j)) $\equiv$
+
+\begin{lstlisting}
+    if c = b
+        then Ag(a, seguidores(c,j))
+        else seguidores(c,j)
+\end{lstlisting}
+
+seguidores(c, luchar(a,b,j)) $\equiv$
+\begin{lstlisting}[mathescape=true]
+    if c = a
+        then seguidores(b, j) $\cup$ seguidores(c, j)
+        else if c = b
+            then $\emptyset$
+            else seguidores(c,j)
+\end{lstlisting}
+
+\end{document}
