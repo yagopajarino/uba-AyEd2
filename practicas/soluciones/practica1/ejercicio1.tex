@@ -1,0 +1,72 @@
+\section{Ejercicio 1}
+
+a) duplicar: $sec(\alpha) \rightarrow sec(\alpha)$
+\begin{lstlisting}[mathescape=true]
+    duplicar(s) $\equiv$ if vacia?(s)
+                    then <>
+                    else prim(s).prim(s).duplicar(fin(s))
+\end{lstlisting}
+
+b) $\bullet \leq \bullet : sec(\alpha) \times sec(\alpha) \rightarrow bool$
+\begin{lstlisting}
+    $s \leq t \equiv$ if vacio?(s)
+                then true
+                else if vacio?(t)
+                    then false
+                    else prim(s) < prim(t) $\vee \neg$prim(s) > prim(t) $\wedge$ fin(s) $\leq$ fin(t)
+\end{lstlisting}
+
+c) reverso: $sec(\alpha) \rightarrow sec(\alpha)$
+\begin{lstlisting}
+    reverso(s) $\equiv$ if vacio?(s)
+                    then <>
+                    else ult(s).reverso(com(s))
+\end{lstlisting}
+
+d) capicua: $sec(\alpha) \rightarrow bool$
+\begin{lstlisting}
+    capicua(s) $\equiv$ if vacio?(s)
+                then true
+                else (prim(s) = ult(s)) $\wedge$ (capicua(fin(com(s))))
+\end{lstlisting}
+
+e) EsPrefijo?: $sec(\alpha) \times sec(\alpha) \rightarrow bool$
+\begin{lstlisting}
+    EsPrefijo?(s,t) $\equiv$ if vacia?(s)
+                        then true
+                        else if vacia?(t)
+                            then false
+                            else EsPrefijo?(fin(s), fin(t))    
+\end{lstlisting}
+
+f) Buscar: $sec(\alpha) \times sec(\alpha) \rightarrow nat$
+\begin{lstlisting}
+    Buscar(s,t) $\equiv$ if EsPrefijo?(s,t)
+                    then 0
+                    else 1+Buscar(s, fin(t))
+\end{lstlisting}
+
+g) EstáOrdenada?: $\sec(\alpha) \rightarrow bool$
+\begin{lstlisting}
+    EstáOrdenada?(s) $\equiv$ $\neg$vacia?(fin(s)) $\yLuego$ 
+                        prim(s) < prim(fin(s)) $\wedge$ 
+                        EstáOrdenada(fin(s))
+\end{lstlisting}
+
+i) CantidadApariciones: $sec(\alpha) \times \alpha \rightarrow nat$
+\begin{lstlisting}
+    CantidadApariciones(s, a) $\equiv$ if vacia?(s)
+                                    then 0
+                                    else if prim(s) = a
+                                        then 1+CantidadApariciones(fin(s))
+                                        else CantidadApariciones(fin(s))
+\end{lstlisting}
+
+g) EsPermutación?(s,t): $sec(\alpha) \times sec(\alpha) \rightarrow bool$
+\begin{lstlisting}
+    EsPermutación?(s,t) $\equiv$ if vacia?(s)
+                        then true
+                        else CantidadApariciones(prim(s), s) = CantidadApariciones(prim(s), t) $\wedge$
+                            EsPermutación(fin(s), t)
+\end{lstlisting}
+
