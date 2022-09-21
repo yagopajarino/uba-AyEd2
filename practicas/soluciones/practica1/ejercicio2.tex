@@ -1,0 +1,34 @@
+\section{Ejercicio 2}
+
+a) esHoja?: $ab(\alpha) \rightarrow bool$
+\begin{lstlisting}
+    esHoja?(a) $\equiv$ if nil?(a)
+                    then false
+                    else (nil?(izq(a) $\wedge$ nil?(der(a))))
+\end{lstlisting}
+
+b) \#Hojas: $ab(\alpha) \rightarrow nat$
+\begin{lstlisting}
+    #Hojas(a) $\equiv$ if nil?(a)
+                    then 0
+                    else if esHoja(a)
+                        then 1 + #Hojas(izq(a)) + #Hojas(der(a))
+                        else #Hojas(izq(a)) + #Hojas(der(a))
+\end{lstlisting}
+
+c) DegeneradoAIzquierda: $ab(\alpha) \rightarrow bool$
+\begin{lstlisting}
+    DegeneradoAIzquierda(a) $\equiv$ if nil?(a)
+                            then false
+                            else if esHoja?(a)
+                                then true
+                                else nil?(der(a)) $\wedge$ DegeneradoAIzquierda(izq(a))
+\end{lstlisting}
+
+g) EsSimetrico?: $ab(\alpha) \rightarrow bool$
+\begin{lstlisting}
+    EsSimetrico?(a) $\equiv$ if nil?(a)
+                            then true
+                            else der(a) = espejo(izq(a)) $\wedge$
+                                 izq(a) = espejo(der(a))    
+\end{lstlisting}
