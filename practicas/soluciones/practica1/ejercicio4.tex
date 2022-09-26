@@ -1,0 +1,19 @@
+\section*{Ejercicio 4}
+
+a) tieneValor: $dicc(\alpha, nat) \times nat \rightarrow bool$
+\begin{lstlisting}
+    tieneValor(d, n) $\equiv$ $\emptyset$?(claves(d))
+                            then false
+                            else obtener(dameUno(claves(d)), d) = n $\vee$ 
+                                 tieneValor(borrar(dameUno(claves(d)), d), n)
+\end{lstlisting}
+
+b) clavesMayoresA: $dicc(\alpha, nat) \times nat \rightarrow conj(\alpha)$
+\begin{lstlisting}
+    clavesMayoresA(d, n) $\equiv$ if $\emptyset$?(claves(d))
+                                then $\emptyset$
+                                else if dameUno(claves(d)) $\geq$ n
+                                    then Ag(dameUno(claves(d)), 
+                                            clavesMayoresA(borrar(dameUno(d)),d))
+                                    else clavesMayoresA(borrar(dameUno(d)),d)
+\end{lstlisting}
