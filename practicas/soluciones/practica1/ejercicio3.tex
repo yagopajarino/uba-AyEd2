@@ -1,0 +1,33 @@
+\section{Ejercicio 3}
+
+a) PartesDe: $conj(nat) \rightarrow conj(conj(nat))$
+
+\begin{lstlisting}
+    PartesDe(c) $\equiv$ if $\emptyset$?(c) 
+                    then {$\emptyset$}
+                    else Agt(dameUno(c), PartesDe(sinUno(c))) $\cup$ PartesDe(sinUno(c))
+\end{lstlisting}
+
+Agt: $nat \times conj(conj(nat)) \rightarrow conj(conj(nat))$
+\begin{lstlisting}
+    Agt(a, c) $\equiv$ if $\emptyset$?(c)
+                    then {}
+                    else Ag(a, dameUno(c)) $\cup$ Agt(a, sinUno(c))
+\end{lstlisting}
+
+b) combinacionesDeK: $conj(\alpha) \times nat \rightarrow conj(conj(\alpha))$
+\begin{lstlisting}
+    combinacionesDeK(c, n) $\equiv$ if $\emptyset$?(c)
+                                then $\emptyset$
+                                else filtrarPorN(PartesDe(c), n) $\cup$ combinacionesDeK(sinUno(c), n)
+\end{lstlisting}
+
+filtrarPorN: $conj(conj(\alpha)) \times nat \rightarrow conj(conj(\alpha))$
+\begin{lstlisting}
+    filtrarPorN(c, n) $\equiv$ if $\emptyset$?(c)
+                            then $\emptyset$
+                            else if #dameUno(c) = n
+                                then Ag(dameUno(c), filtrarPorN(sinUno(c), n))
+                                else filtrarPorN(sinUno(c), n)
+\end{lstlisting}
+
