@@ -1,0 +1,27 @@
+\section{Ejercicio 1}
+\subsubsection*{Pregunta a}
+
+Rep : estr $\rightarrow$ Bool
+\begin{align*}
+    Res(e) \equiv &e.inicio < long(e.elem) \wedge  \\
+    &e.fin < long(e.elem) \yLuego \\
+    &e.inicio = e.fin \iff (\forall i: nat)(0 \leq i < long(e.elem) \implicaLuego e.elem[i] = 0)
+\end{align*}
+
+Coloquialmente: "Todos los elementos entre inicio y fin tienen que ser distintos de cero"
+
+Abs: estr e $\rightarrow$ cacotada \{Rep(e)\}
+\begin{align*}
+    Abs(e) \equiv c: cacotada | &capacidad(c) = long(e.elem) \wedge \\
+    &vacia?(verCola(c)) = (e.inicio = e.fin) \wedge \\
+    &proximo(verCola(c)) = e.elem[e.fin]
+\end{align*}
+
+Me falta la condición del observador básico \textbf{desencolar} pero no se como implementarlo.
+
+\subsubsection*{Pregunta b}
+Interfaz
+
+\textbf{Se explica con}: CACOTADA(nat)
+
+\textbf{Géneros}: cacotada(nat)
