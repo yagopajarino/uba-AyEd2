@@ -81,3 +81,35 @@
 % Alias para algoritmos
 \newcommand{\Complexity}[1]{\textbf{Complejidad}: #1}
 \newcommand{\Pre}[1]{\textbf{Pre} $\equiv$ \{#1\}}
+
+% Carátula de prácticas
+%practicas
+\newcommand{\practica}[2]{%
+    \title{Pr\'actica #1 \\ #2}
+    \author{Algoritmos y Estructuras de Datos II}
+    \date{Segundo Cuatrimestre 2022}
+
+    \maketitlepractica{#1}{#2}
+}
+
+\newcommand \maketitlepractica[2] {%
+\begin{center}
+\begin{tabular}{r cr}
+ \begin{tabular}{c}
+{\large\bf\textsf{\ Algoritmos y Estructuras de Datos II\ }}\\
+Segundo Cuatrimestre 2022\\ \\
+Práctica #1 - \textbf{#2}\\
+\end{tabular} &
+\begin{tabular}{@{} p{1.6cm} @{}}
+\includegraphics[width=4.5cm]{./logodtp.png}
+\end{tabular} &
+\begin{tabular}{l @{}}
+ \emph{Departamento de Computaci\'on} \\
+ \emph{Facultad de Ciencias Exactas y Naturales} \\
+ \emph{Universidad de Buenos Aires} \\
+\end{tabular}
+\end{tabular}
+\end{center}
+
+\bigskip
+}
