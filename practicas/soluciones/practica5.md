@@ -228,21 +228,20 @@ No se
 
 ```python
 
-# Con esto puedo acotar el algoritmo
-COTA_RANGO = k
-
-def counting_sort(arr):
-    counts = [0] * COTA_RANGO+1
+def counting_sort(arr, k):
+    counts = [0] * k
+    res = [0] * len(arr)
     for x in arr:
         counts[x] += 1
-    res = []
-    for i in len(counts):
-        for j in (0, count):
-            res.append(i)
+    for i in range(1, len(counts)):
+        counts[x] += counts[x-1]
+    for j in range(0, len(arr), -1):
+        res[counts[arr[j]]] = arr[j]
+        counts[arr[j]] -= 1
     return res
 ```
 
-No se si es $O(n)$. Cormen lo incluye en algoritmos de ordenamiento lineales, buscar ahi.
+Complejidad $O(n)$
 
 # Ejercicio 12
 
@@ -280,3 +279,56 @@ def ej12(arr):
     for x in mayores:
         res.append(x)
 ```
+
+Complejidad $O(n)$
+
+# Ejercicio 13
+
+## 13.1
+
+```python
+def ej13(arr):
+    radix_sort(arr)
+    merge_sort(arr)
+```
+
+Radix sort utiliza el método de ordenamiento estable `counting_sort` con complejidad $O(n+k)$
+
+Complejidad `radix_sort` $O(l.(n+k))$ con $l$ longitud máxima de la palabra, $n$ cantidad de items en el array, $k$ cantidad de caracteres distintos que componen las palabras.
+
+Complejidad `merge_sort` $O(n.log(n))$
+
+Comlejidad `ej13` $O(ln + n.log(n))$
+
+## 13.2
+
+```python
+def ej13_2(arr):
+    radix_sort(arr)
+    count_sort(arr)
+```
+
+Complejidad $O(ln + n) = O(ln)$
+
+# Ejercicio 14
+
+TODO
+
+# Ejercicio 15
+
+```python
+def ej15(arr):
+    maximo = arr[0]
+    for x in arr:
+        if x > maximo:
+            maximo = x
+    b = [0] * maximo
+    for x in arr:
+        b[x] += 1
+    i = 0
+    while i < len(b) and b[i] != 0:
+        i += 1
+    return i < len(b)
+```
+
+No se si cumple con la complejidad, me parece que esto es $O(max)$ con $max$ el elemento máximo del arreglo.
